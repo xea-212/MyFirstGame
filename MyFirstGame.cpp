@@ -5,14 +5,14 @@
 #include "MyFirstGame.h"
 #include "Direct3D.h"
 #include "Quad.h"
-#include "Camera.h"
+
 
 HWND hWnd = nullptr;
 
 #define MAX_LOADSTRING 100
 
 // グローバル変数の宣言
-const wchar_t* WIN_CLASS_NAME = L"SAMPLE GAME WINDOW";
+const wchar_t* WIN_CLASS_NAME = L"SANPLE GAME WINDOW";
 const int WINDOW_WIDTH = 800;  //ウィンドウの幅
 const int WINDOW_HEIGHT = 600; //ウィンドウの高さ // SVGAサイズ
 
@@ -52,43 +52,57 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,// hInstance：実行中のアプ
     hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
     if (FAILED(hr))
     {
+        MessageBox(nullptr, L"ダイレクトxのイニシャライズに失敗しました", L"エラー", MB_OK);
         return 0;
     }
+
+    Camera::Initialize();
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MYFIRSTGAME));
 
     MSG msg{};
     Quad* q = new Quad();
-    q->Initialize();
+    hr = q->Initialize();
+    if (FAILED(hr))
+    {
+        MessageBox(nullptr, L"クアッドのイニシャライズに失敗しました", L"エラー", MB_OK);
+        return 0;
+    }
+
     // メイン メッセージ ループ:
     // メッセージループは、アプリケーションがシステムからメッセージを受け取り、処理するための仕組み。
     // ユーザー操作（クリックやキー入力など）を受け取り、処理を続ける仕組み 
 //    while (GetMessage(&msg, nullptr, 0, 0))
-    while (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
+    while (msg.message != WM_QUIT)
     {
-        /* if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-         {
-             TranslateMessage(&msg);
-             DispatchMessage(&msg);
-         }
-         */
-         //メッセージあり
+       /* if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        */
+        //メッセージあり
 
+        if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 
-        TranslateMessage(&msg);
+        {
 
-        DispatchMessage(&msg);
-    }
-       
+            TranslateMessage(&msg);
+
+            DispatchMessage(&msg);
+
+        }
 
 
 
         //メッセージなし
 
-       
-            //ゲームの処理
+        else
+        {
 
-			Camera::Update(); //カメラの更新
+            //ゲームの処理
+            Camera::Update();
+
             //背景の色
             //float clearColor[4] = { 0.0f, 0.5f, 0.5f, 1.0f };//R,G,B,A
 
@@ -99,15 +113,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,// hInstance：実行中のアプ
             //描画処理
             XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
             q->Draw(mat);
-
             //スワップ（バックバッファを表に表示する）
             Direct3D::EndDraw();
           //  pSwapChain->Present(0, 0);
 
-        
-    
+        }
+    }
+    q->Release();
     SAFE_RELEASE(q);
-    SAFE_DELETE(q);
+
     Direct3D::Release();
 
     return (int) msg.wParam;
