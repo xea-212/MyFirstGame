@@ -29,10 +29,45 @@ HRESULT Quad::Initialize()
 	// 縦横2の乗数
 	VERTEX vertices[] =
 	{
-		{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（左上）
-		{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（右上）
-		{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（右下）
-		{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（左下）
+		//{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（左上）
+		//{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f) },   // 四角形の頂点（右上）
+		//{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(1.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（右下）
+		//{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f) },   // 四角形の頂点（左下）
+		//ok
+		{ XMVectorSet(-1.0f, 1.0f, -1.0f, 1.0f), XMVectorSet(0.0f, 0.0f, 0, 0) }, // 左上
+	{ XMVectorSet(1.0f, 1.0f, -1.0f, 1.0f), XMVectorSet(0.25f, 0.0f, 0, 0) }, // 右上
+	{ XMVectorSet(1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.25f, 0.5f, 0, 0) }, // 右下
+	{ XMVectorSet(-1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.0f, 0.5f, 0, 0) }, // 左下
+
+	// 背面ok
+	{ XMVectorSet(-1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(0.25f, 1.0f, 0, 0) },
+	{ XMVectorSet(1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(0.5f, 1.0f, 0, 0) },
+	{ XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(0.5f, 0.5f, 0, 0) },
+	{ XMVectorSet(-1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(0.25f, 0.5f, 0, 0) },
+
+	// 左面
+	{ XMVectorSet(-1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(0.5f, 0.0f, 0, 0) },
+	{ XMVectorSet(-1.0f, 1.0f, -1.0f, 1.0f), XMVectorSet(0.75f, 0.0f, 0, 0) },
+	{ XMVectorSet(-1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.75f, 0.5f, 0, 0) },
+	{ XMVectorSet(-1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(0.5f, 0.5f, 0, 0) },
+
+	// 右面ok
+	{ XMVectorSet(1.0f, 1.0f, -1.0f, 1.0f), XMVectorSet(0.75f, 0.0f, 0, 0) },
+	{ XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(1.0f, 0.0f, 0, 0) },
+	{ XMVectorSet(1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(1.0f, 0.5f, 0, 0) },
+	{ XMVectorSet(1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.75f, 0.5f, 0, 0) },
+
+	// 上面ok
+	{ XMVectorSet(-1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(0.25f, 0.0f, 0, 0) },
+	{ XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f), XMVectorSet(0.5f, 0.0f, 0, 0) },
+	{ XMVectorSet(1.0f, 1.0f,-1.0f, 1.0f), XMVectorSet(0.5f, 0.5f, 0, 0) },
+	{ XMVectorSet(-1.0f, 1.0f,-1.0f, 1.0f), XMVectorSet(0.25f, 0.5f, 0, 0) },
+
+	// 底面ok
+	{ XMVectorSet(-1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.0f, 0.5f, 0, 0) },
+	{ XMVectorSet(1.0f,-1.0f, -1.0f, 1.0f), XMVectorSet(0.25f, 0.5f, 0, 0) },
+	{ XMVectorSet(1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(0.25f, 1.0f, 0, 0) },
+	{ XMVectorSet(-1.0f,-1.0f, 1.0f, 1.0f), XMVectorSet(0.0f, 1.0f, 0, 0) },
 	};
 	//const int numVertex = sizeof(vertices) / sizeof(vertices[0]);
 	// 頂点データ用バッファの設定
@@ -53,7 +88,15 @@ HRESULT Quad::Initialize()
 	}
 
 	//インデックス情報
-	int index[] = { 0,2,3, 0,1,2 }; // CW ※時計回り
+	int index[] = { //0,2,3, 0,1,2 
+	 0,1,2, 0,2,3,       // 前面
+	4,5,6, 4,6,7,       // 背面
+	8,9,10, 8,10,11,    // 左面
+	12,13,14, 12,14,15, // 右面
+	16,17,18, 16,18,19, // 上面
+	20,21,22, 20,22,23  // 底面
+	};
+    // CW ※時計回り
 
 	// インデックスバッファを生成する
 	D3D11_BUFFER_DESC   bd;
@@ -108,7 +151,6 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
@@ -117,10 +159,12 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 
 	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
 
+
+
 	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
 
 	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
-	
+
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開
 
 	//頂点バッファ
@@ -137,9 +181,7 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
 	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
 
-
-
-	Direct3D::pContext->DrawIndexed(6, 0, 0);
+	Direct3D::pContext->DrawIndexed(36, 0, 0);
 }
 
 void Quad::Release()

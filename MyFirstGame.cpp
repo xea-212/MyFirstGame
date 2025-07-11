@@ -5,7 +5,7 @@
 #include "MyFirstGame.h"
 #include "Direct3D.h"
 #include "Quad.h"
-
+#include "Dice.h"
 
 HWND hWnd = nullptr;
 
@@ -111,7 +111,31 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,// hInstance：実行中のアプ
             Direct3D::BeginDraw();
 
             //描画処理
-            XMMATRIX mat = XMMatrixRotationY(XMConvertToRadians(45));
+            static bool rool = true;
+            static float hangle = 0;
+           
+            XMMATRIX mat = XMMatrixRotationX(XMConvertToRadians(hangle));
+            if (rool)
+            {
+                mat = XMMatrixRotationX(XMConvertToRadians(hangle));
+                hangle += 0.1f;
+                if (GetAsyncKeyState(VK_UP))
+                {
+                    rool = false;
+                }
+            }
+            
+            else
+            {
+                mat = XMMatrixRotationY(XMConvertToRadians(hangle));
+                hangle += 0.1f;
+                if (GetAsyncKeyState(VK_DOWN))
+                {
+                    rool = true;
+                }
+            }
+         
+
             q->Draw(mat);
             //スワップ（バックバッファを表に表示する）
             Direct3D::EndDraw();

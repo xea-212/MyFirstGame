@@ -12,6 +12,7 @@ using namespace DirectX;
 struct CONSTANT_BUFFER
 {
 	XMMATRIX	matWVP;
+	
 };
 
 //’¸“_î•ñ

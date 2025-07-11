@@ -2,6 +2,7 @@
 //#include <winddi.h>
 #include <d3d11.h>
 #include <assert.h>
+#include <DirectXMath.h>
 
 //ƒŠƒ“ƒJ
 #pragma comment(lib, "d3d11.lib")
